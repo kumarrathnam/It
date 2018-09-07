@@ -12,7 +12,7 @@ public class Solution {
           
           if(IsLiteralToken(currentToken))
           {
-            isMatch = isMatch & getMatch(s, lastMatchedIndex, currentToken, out newLastMatchedIndex);
+            isMatch = isMatch && getMatch(s, lastMatchedIndex, currentToken, out newLastMatchedIndex);
           }
           else
           {
@@ -22,7 +22,42 @@ public class Solution {
           currentTokenIndex ++;
           lastMatchedIndex = newLastMatchedIndex + 1;
         }
+        
+        return lastMatchedIndex == s.Length;
     }
     
-    return lastMatchedIndex == ;
+    bool IsLiteralToken(string token)
+    {
+        for(int i = 0 ; i < token.Length; i++)
+        {
+            if(IsSpecialCharacter(token[i]))
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    bool IsSpecialCharacter(char c)
+    {
+        return  c == '*' || c == '.';
+    }
+    
+    bool IsMatch(string s, int lastMatchedIndex, char toMatch, int count, out int lastMatchedIndex)
+    {
+        while(lastMatchedIndex < s.Length && count > 0)
+        {
+            if (s [lastMatchedIndex] == toMatch || s[lastMatchedIndex] == '.')
+            {
+                lastMatchedIndex ++;
+                count --;
+            }
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
 }
