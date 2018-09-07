@@ -53,6 +53,57 @@ public class Solution {
                 lastMatchedIndex ++;
                 count --;
             }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    
+    String [] getTokens(string p)
+    {
+        List<String> tokens = new List<String>();
+        String currentToken = "";
+        
+        for(int i = 0; i < p.Length; i++)
+        {
+            if(p[i] != '*')
+            {
+                if(i + 1 < p.Length && p[i + 1] == "*")
+                {
+                    if (currentToken != "")
+                    {
+                        tokens.Add(currentToken);
+                        currentToken = "";
+                    }
+                    
+                    tokens.Add(p[i] + "*");
+                }
+                else
+                {
+                    currentToken = currentToken + p[i];
+                }
+            }
+            else if(p[i] == '.')
+            {
+                if (currentToken != "")
+                {
+                    tokens.Add(currentToken);
+                    currentToken = "";
+                }
+                
+                tokens.Add(".");
+            }
+        }
+    }
+    
+    bool IsLiteralMatch(String s, String p, int lastMatchedIndex, out int newLastMatchedIndex)
+    {
+        for(int i =0;i < p.Length; i++)
+        {
+            if(i + lastMatchedIndex < s.Length && s[i + lastMatchedIndex != p[i]])
+            {
+                newLastMatchedIndex = i + lastMatchedIndex;
             }
             else
             {
